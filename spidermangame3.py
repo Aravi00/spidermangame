@@ -49,14 +49,14 @@ while True:
     
     rect = [rext,reyt,30,40] #x,y,w,h
     #draw here
-    if pressed:
+    if pressed: #pressed
         angle = np.degrees(np.arctan((reyt-y)/(x-(rext+30))))
         length = np.sqrt((x-(rext+30))**2 + (reyt-y)**2)
         print(angle,length)
         
         py.draw.line(window,(0,0,0),(rext+30,reyt),(x,y))
     py.draw.rect(window,(0,0,0),rect)
-    py.display.flip()
+    py.display.flip() 
     clock.tick(60)                                   
 py.quit()
 
