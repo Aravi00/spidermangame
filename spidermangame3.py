@@ -20,21 +20,7 @@ while True:
         pressed = True
         x,y = py.mouse.get_pos()
         print(x,y)
-        #tan-1 of y/x = angle
-        #angle ++
-#     else:
-#         pressed = False
-    if (key[py.K_SPACE] or key[py.K_w]) and reyt>=400:
         
-        print("jump")
-        yspeed = -20
-    if key[py.K_d]:
-        print("right")
-        rext +=10
-    if key[py.K_a]:
-        print("left")
-        rext -=10   
-
     window.fill("white")
     yspeed+=1
     reyt+=yspeed
@@ -49,10 +35,14 @@ while True:
     
     rect = [rext,reyt,30,40] #x,y,w,h
     #draw here
-    if pressed: #pressed
-        angle = np.degrees(np.arctan((reyt-y)/(x-(rext+30))))
+    if pressed:
+        angle = int(np.degrees(np.arctan((reyt-y)/(x-(rext+30)))))
         length = np.sqrt((x-(rext+30))**2 + (reyt-y)**2)
         print(angle,length)
+        
+        
+        
+        
         
         py.draw.line(window,(0,0,0),(rext+30,reyt),(x,y))
     py.draw.rect(window,(0,0,0),rect)
