@@ -14,6 +14,7 @@ pressed = False
 def getdata (boxx,boxy,mousex,mousey):
     global rext, reyt
     length = np.sqrt((mousex-(boxx+30))**2 + (boxy-mousey)**2)
+    #use sin or cosine instead and then use length as hypotonues using picture as reference
     if mousex>(boxx+30):
         x = mousex-(boxx+30)
     elif mousex<(boxx+30):
