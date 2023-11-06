@@ -21,7 +21,7 @@ while True:
         x,y = py.mouse.get_pos()
         print(x,y)
         
-    window.fill("white")
+    window.fill("white")    
     yspeed+=1
     reyt+=yspeed
     if reyt >= 400:
