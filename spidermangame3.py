@@ -12,23 +12,22 @@ reyt = 50
 yspeed = 2
 pressed = False
 def getdata (boxx,boxy,mousex,mousey):
-    global rext, reyt
-    length = np.sqrt((mousex-(boxx+30))**2 + (boxy-mousey)**2)
+    boxx = boxx+30
+    length = np.sqrt((mousex-(boxx))**2 + (boxy-mousey)**2)
     #use sin or cosine instead and then use length as hypotonues using picture as reference
-    if mousex>(boxx+30):
-        x = mousex-(boxx+30)
-    elif mousex<(boxx+30):
-        x = (boxx+30)-mousex
-    if mousey>boxy:
-        y = boxy-mousey
-    elif mousey<boxy:
-        y = mousey-boxy
-    if (mousex<(boxx+30) and mousey<boxy) or (mousex>(boxx+30) and mousey>boxy):
-        angle = np.degrees(np.arctan(x/y))
-        print("topl")
-    if (mousex<(boxx+30) and mousey>boxy) or (mousex>(boxx+30) and mousey<boxy):
-        angle = np.degrees(np.arctan(y/x))
-        print("topr")
+    if (mousex<(boxx+30) and mousey<boxy): # 4
+        print("4")
+        angle = np.degrees(np.arcsin((boxx-mousex)/length))
+    elif (mousex>(boxx+30) and mousey>boxy): # 1
+         print("1")
+         angle = np.degrees(np.arcsin((mousex-boxx)/length))
+    elif (mousex<(boxx+30) and mousey>boxy): # 3
+        print("3")
+        angle = np.degrees(np.arcsin((mousey-boxy)/length))
+    elif (mousex>(boxx+30) and mousey<boxy): # 2
+        print("2")
+        angle = np.degrees(np.arcsin((boxy-mousey)/length))
+    
     return angle, length
 while True:
     ev = py.event.poll()
@@ -46,18 +45,14 @@ while True:
     if reyt >= 400:
         yspeed = 0
         reyt = 400
-
-    if rext > windowwidth:
-        rext = 0
-    elif rext < 0:
-        rext = windowwidth
-        #draw here
+        
     if pressed:
-        print(angle,length)
-        rext = x - length*(np.cos(angle))
-        reyt = y + length*np.sin(angle)
+        print(angle)
+        rext = (x - length*(np.cos(angle)))
+        reyt = (y + length*np.sin(angle))
         angle+=0.01
         py.draw.line(window,(0,0,0),(rext+30,reyt),(x,y))
+        
         
     rect = [rext,reyt,30,40] #x,y,w,h
     py.draw.rect(window,(0,0,0),rect)
