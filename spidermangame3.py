@@ -16,17 +16,18 @@ def getdata (boxx,boxy,mousex,mousey):
     length = np.sqrt((mousex-(boxx))**2 + (boxy-mousey)**2)
     #use sin or cosine instead and then use length as hypotonues using picture as reference
     if (mousex<(boxx) and mousey<boxy): # 4
-        print("4")
         angle = np.degrees(np.arcsin((boxx-mousex)/length))
+        print("4",angle)
     elif (mousex>(boxx) and mousey>boxy): # 1
-         print("1")
-         angle = np.degrees(np.arcsin((mousex-boxx)/length))
+        angle = np.degrees(np.arcsin((mousex-boxx)/length))
+        print("1",angle)
     elif (mousex<(boxx) and mousey>boxy): # 3
-        print("3")
+
         angle = np.degrees(np.arcsin((mousey-boxy)/length))
+        print("3",angle)
     elif (mousex>(boxx) and mousey<boxy): # 2
-        print("2")
         angle = np.degrees(np.arcsin((boxy-mousey)/length))
+        print("2",angle)
     
     return angle, length
 window.fill("white")
@@ -40,8 +41,8 @@ while True:
         x,y = py.mouse.get_pos()
         if pressed:
             print(x,y)
-            angle,length = getdata(rext,reyt,x,y)
-    #window.fill("white")
+            angle,length = getdata(rext,reyt,x,y) 
+    window.fill("white")
     yspeed+=0.05
     reyt+=yspeed
     if reyt >= 400:
