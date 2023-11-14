@@ -11,23 +11,20 @@ rext = 50
 reyt = 50
 yspeed = 2
 pressed = False
+transition_speed = 0.1  # Adjust the transition speed as needed
+
 def getdata (boxx,boxy,mousex,mousey):
     boxx = boxx+30
     length = np.sqrt((mousex-(boxx))**2 + (boxy-mousey)**2)
     #use sin or cosine instead and then use length as hypotonues using picture as reference
-    if (mousex<(boxx) and mousey<boxy): # 4
-        angle = np.degrees(np.arcsin((boxx-mousex)/length))
-        print("4",angle)
-    elif (mousex>(boxx) and mousey>boxy): # 1
-        angle = np.degrees(np.arcsin((mousex-boxx)/length))
-        print("1",angle)
-    elif (mousex<(boxx) and mousey>boxy): # 3
-
-        angle = np.degrees(np.arcsin((mousey-boxy)/length))
-        print("3",angle)
-    elif (mousex>(boxx) and mousey<boxy): # 2
-        angle = np.degrees(np.arcsin((boxy-mousey)/length))
-        print("2",angle)
+    if (mousex < boxx and mousey < boxy):  # Case 4
+        angle = np.degrees(np.arcsin((boxx - mousex) / length))
+    elif (mousex > boxx and mousey > boxy):  # Case 1
+        angle = np.degrees(np.arcsin((mousex - boxx) / length))
+    elif (mousex < boxx and mousey > boxy):  # Case 3
+        angle = np.degrees(np.arcsin((mousey - boxy) / length))
+    elif (mousex > boxx and mousey < boxy):  # Case 2
+        angle = np.degrees(np.arcsin((mousey - boxy) / length))
     
     return angle, length
 window.fill("white")
@@ -47,10 +44,10 @@ while True:
         
     if pressed:
         #print(angle)
-        rext = (x - length*(np.cos(np.radians(angle))))
-        reyt = (y + length*np.sin(np.radians(angle)))
-        angle+=1
-        py.draw.line(window,(0,0,0),(rext+30,reyt),(x,y))
+        # Smooth transition to swinging configuration
+        rext += length * np.cos(np.radians(angle))
+        reyt -= length * np.sin(np.radians(angle))
+        py.draw.line(window, (0, 0, 0), (rext, reyt), (rext + np.cos(np.radians(angle)) * 30, reyt - np.sin(np.radians(angle)) * 30))
     else:
         yspeed+=0.05
         reyt+=yspeed
