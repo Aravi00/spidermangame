@@ -38,26 +38,30 @@ while True:
     key = py.key.get_pressed()
     if ev.type == py.MOUSEBUTTONDOWN:
         pressed = not pressed
+        
         x,y = py.mouse.get_pos()
         if pressed:
             print(x,y)
-            angle,length = getdata(rext,reyt,x,y) 
+            angle,length = getdata(rext,reyt,x,y)
+        else:
+            yspeed = -0.6*yspeed
     window.fill("white")
 
-        
+    yspeed+=0.05
+    reyt+=yspeed
+    if reyt >= 400:
+        yspeed = -0.8*yspeed # die here
+        reyt = 400
     if pressed:
-        #print(angle)
-        rext = (x - length*(np.cos(np.radians(angle))))
-        reyt = (y + length*np.sin(np.radians(angle)))
-        angle+=1
-        py.draw.line(window,(0,0,0),(rext+30,reyt),(x,y))
-    else:
-        yspeed+=0.05
-        reyt+=yspeed
-        if reyt >= 400:
-            yspeed = -0.8*yspeed
-            reyt = 400
-        
+        print(angle)
+        if angle > 160:
+            pressed = False
+            yspeed = -0.6*yspeed
+        else:
+            rext = (x - length*(np.cos(np.radians(angle))))
+            reyt = (y + length*np.sin(np.radians(angle)))
+            angle+=1
+            py.draw.line(window,(0,0,0),(rext+30,reyt),(x,y))
     rect = [rext,reyt,30,40] #x,y,w,h
     py.draw.rect(window,(0,0,0),rect)
     py.display.flip()
